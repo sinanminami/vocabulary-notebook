@@ -1,0 +1,18 @@
+.DS_Store
+.build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+Packages/VocabularyKit/.swiftpm/
+Packages/VocabularyKit/.build/
+Packages/Vendor/GRDB.swift/.git/
+
+# Local-only: pre-migration database backups (may contain personal data) and link to installed app
+Build/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+!Packages/Vendor/**/*.sqlite
+
+# Personal files unrelated to the project
+*.xlsx

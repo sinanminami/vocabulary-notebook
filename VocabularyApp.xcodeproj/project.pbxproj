@@ -1,0 +1,378 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000000000000000000001 /* VocabularyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000001 /* VocabularyApp.swift */; };
+		A10000000000000000000002 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000002 /* AppEnvironment.swift */; };
+		A10000000000000000000003 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000003 /* RootView.swift */; };
+		A10000000000000000000004 /* VocabularyCore in Frameworks */ = {isa = PBXBuildFile; productRef = A90000000000000000000002 /* VocabularyCore */; };
+		A10000000000000000000005 /* VocabularyPersistence in Frameworks */ = {isa = PBXBuildFile; productRef = A90000000000000000000003 /* VocabularyPersistence */; };
+		A10000000000000000000006 /* AddWordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000005 /* AddWordViewModel.swift */; };
+		A10000000000000000000007 /* AddWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000006 /* AddWordView.swift */; };
+		A10000000000000000000008 /* AISettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000007 /* AISettingsViewModel.swift */; };
+		A10000000000000000000009 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000008 /* SettingsView.swift */; };
+		A1000000000000000000000A /* VocabularyAI in Frameworks */ = {isa = PBXBuildFile; productRef = A90000000000000000000004 /* VocabularyAI */; };
+		A1000000000000000000000B /* VocabularySnapshotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000009 /* VocabularySnapshotModel.swift */; };
+		A1000000000000000000000C /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000A /* LibraryView.swift */; };
+		A1000000000000000000000D /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000B /* TodayView.swift */; };
+		A1000000000000000000000E /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000C /* StatisticsView.swift */; };
+		A1000000000000000000000F /* ReviewSessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000D /* ReviewSessionModel.swift */; };
+		A10000000000000000000010 /* ReviewSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000E /* ReviewSessionView.swift */; };
+		A10000000000000000000011 /* GlobalHotKeyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000F /* GlobalHotKeyController.swift */; };
+		A10000000000000000000012 /* EditWordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000010 /* EditWordViewModel.swift */; };
+		A10000000000000000000013 /* EditWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000011 /* EditWordView.swift */; };
+		A10000000000000000000014 /* ReviewSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000012 /* ReviewSettingsViewModel.swift */; };
+		A10000000000000000000015 /* ReviewReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000013 /* ReviewReminderManager.swift */; };
+		A10000000000000000000016 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000014 /* AppDelegate.swift */; };
+		A10000000000000000000017 /* QuickAddPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000015 /* QuickAddPanelController.swift */; };
+		A10000000000000000000018 /* TagSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000016 /* TagSettingsViewModel.swift */; };
+		A10000000000000000000019 /* DataManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000017 /* DataManagementViewModel.swift */; };
+		A1000000000000000000001A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000018 /* Assets.xcassets */; };
+		A1000000000000000000001B /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000019 /* DesignSystem.swift */; };
+		A1000000000000000000001C /* WordPronouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000001A /* WordPronouncer.swift */; };
+		A1000000000000000000001D /* MemoryInsightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000001B /* MemoryInsightView.swift */; };
+		A1000000000000000000001E /* LaunchAtLoginSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000001C /* LaunchAtLoginSettingsModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A20000000000000000000001 /* VocabularyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyApp.swift; sourceTree = "<group>"; };
+		A20000000000000000000002 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		A20000000000000000000003 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		A20000000000000000000004 /* VocabularyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VocabularyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A20000000000000000000005 /* AddWordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewModel.swift; sourceTree = "<group>"; };
+		A20000000000000000000006 /* AddWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordView.swift; sourceTree = "<group>"; };
+		A20000000000000000000007 /* AISettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISettingsViewModel.swift; sourceTree = "<group>"; };
+		A20000000000000000000008 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A20000000000000000000009 /* VocabularySnapshotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularySnapshotModel.swift; sourceTree = "<group>"; };
+		A2000000000000000000000A /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		A2000000000000000000000B /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		A2000000000000000000000C /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		A2000000000000000000000D /* ReviewSessionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSessionModel.swift; sourceTree = "<group>"; };
+		A2000000000000000000000E /* ReviewSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSessionView.swift; sourceTree = "<group>"; };
+		A2000000000000000000000F /* GlobalHotKeyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalHotKeyController.swift; sourceTree = "<group>"; };
+		A20000000000000000000010 /* EditWordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWordViewModel.swift; sourceTree = "<group>"; };
+		A20000000000000000000011 /* EditWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWordView.swift; sourceTree = "<group>"; };
+		A20000000000000000000012 /* ReviewSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSettingsViewModel.swift; sourceTree = "<group>"; };
+		A20000000000000000000013 /* ReviewReminderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewReminderManager.swift; sourceTree = "<group>"; };
+		A20000000000000000000014 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A20000000000000000000015 /* QuickAddPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickAddPanelController.swift; sourceTree = "<group>"; };
+		A20000000000000000000016 /* TagSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSettingsViewModel.swift; sourceTree = "<group>"; };
+		A20000000000000000000017 /* DataManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagementViewModel.swift; sourceTree = "<group>"; };
+		A20000000000000000000018 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
+		A20000000000000000000019 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		A2000000000000000000001A /* WordPronouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordPronouncer.swift; sourceTree = "<group>"; };
+		A2000000000000000000001B /* MemoryInsightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryInsightView.swift; sourceTree = "<group>"; };
+		A2000000000000000000001C /* LaunchAtLoginSettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginSettingsModel.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A30000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000004 /* VocabularyCore in Frameworks */,
+				A10000000000000000000005 /* VocabularyPersistence in Frameworks */,
+				A1000000000000000000000A /* VocabularyAI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A40000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				A40000000000000000000002 /* VocabularyApp */,
+				A40000000000000000000004 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A40000000000000000000002 /* VocabularyApp */ = {
+			isa = PBXGroup;
+			children = (
+				A40000000000000000000003 /* App */,
+				A20000000000000000000018 /* Assets.xcassets */,
+			);
+			path = VocabularyApp;
+			sourceTree = "<group>";
+		};
+		A40000000000000000000003 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000001 /* VocabularyApp.swift */,
+				A20000000000000000000002 /* AppEnvironment.swift */,
+				A20000000000000000000003 /* RootView.swift */,
+				A20000000000000000000005 /* AddWordViewModel.swift */,
+				A20000000000000000000006 /* AddWordView.swift */,
+				A20000000000000000000007 /* AISettingsViewModel.swift */,
+				A20000000000000000000008 /* SettingsView.swift */,
+				A20000000000000000000009 /* VocabularySnapshotModel.swift */,
+				A2000000000000000000000A /* LibraryView.swift */,
+				A2000000000000000000000B /* TodayView.swift */,
+				A2000000000000000000000C /* StatisticsView.swift */,
+				A2000000000000000000000D /* ReviewSessionModel.swift */,
+				A2000000000000000000000E /* ReviewSessionView.swift */,
+				A2000000000000000000001A /* WordPronouncer.swift */,
+				A2000000000000000000001B /* MemoryInsightView.swift */,
+				A2000000000000000000000F /* GlobalHotKeyController.swift */,
+				A20000000000000000000010 /* EditWordViewModel.swift */,
+				A20000000000000000000011 /* EditWordView.swift */,
+				A20000000000000000000012 /* ReviewSettingsViewModel.swift */,
+				A20000000000000000000013 /* ReviewReminderManager.swift */,
+				A20000000000000000000014 /* AppDelegate.swift */,
+				A20000000000000000000015 /* QuickAddPanelController.swift */,
+				A20000000000000000000016 /* TagSettingsViewModel.swift */,
+				A20000000000000000000017 /* DataManagementViewModel.swift */,
+				A20000000000000000000019 /* DesignSystem.swift */,
+				A2000000000000000000001C /* LaunchAtLoginSettingsModel.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		A40000000000000000000004 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000004 /* VocabularyApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A50000000000000000000001 /* VocabularyApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A80000000000000000000002 /* Build configuration list for PBXNativeTarget "VocabularyApp" */;
+			buildPhases = (
+				A60000000000000000000001 /* Sources */,
+				A30000000000000000000001 /* Frameworks */,
+				A60000000000000000000002 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VocabularyApp;
+			packageProductDependencies = (
+				A90000000000000000000002 /* VocabularyCore */,
+				A90000000000000000000003 /* VocabularyPersistence */,
+				A90000000000000000000004 /* VocabularyAI */,
+			);
+			productName = VocabularyApp;
+			productReference = A20000000000000000000004 /* VocabularyApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A70000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2630;
+				LastUpgradeCheck = 2630;
+				TargetAttributes = {
+					A50000000000000000000001 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+				};
+			};
+			buildConfigurationList = A80000000000000000000001 /* Build configuration list for PBXProject "VocabularyApp" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				zh-Hans,
+			);
+			mainGroup = A40000000000000000000001;
+			packageReferences = (
+				A90000000000000000000001 /* XCLocalSwiftPackageReference "Packages/VocabularyKit" */,
+			);
+			productRefGroup = A40000000000000000000004 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A50000000000000000000001 /* VocabularyApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A60000000000000000000002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000000000000000000001A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A60000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000001 /* VocabularyApp.swift in Sources */,
+				A10000000000000000000002 /* AppEnvironment.swift in Sources */,
+				A10000000000000000000003 /* RootView.swift in Sources */,
+				A10000000000000000000006 /* AddWordViewModel.swift in Sources */,
+				A10000000000000000000007 /* AddWordView.swift in Sources */,
+				A10000000000000000000008 /* AISettingsViewModel.swift in Sources */,
+				A10000000000000000000009 /* SettingsView.swift in Sources */,
+				A1000000000000000000000B /* VocabularySnapshotModel.swift in Sources */,
+				A1000000000000000000000C /* LibraryView.swift in Sources */,
+				A1000000000000000000000D /* TodayView.swift in Sources */,
+				A1000000000000000000000E /* StatisticsView.swift in Sources */,
+				A1000000000000000000000F /* ReviewSessionModel.swift in Sources */,
+				A10000000000000000000010 /* ReviewSessionView.swift in Sources */,
+				A1000000000000000000001C /* WordPronouncer.swift in Sources */,
+				A1000000000000000000001D /* MemoryInsightView.swift in Sources */,
+				A10000000000000000000011 /* GlobalHotKeyController.swift in Sources */,
+				A10000000000000000000012 /* EditWordViewModel.swift in Sources */,
+				A10000000000000000000013 /* EditWordView.swift in Sources */,
+				A10000000000000000000014 /* ReviewSettingsViewModel.swift in Sources */,
+				A10000000000000000000015 /* ReviewReminderManager.swift in Sources */,
+				A10000000000000000000016 /* AppDelegate.swift in Sources */,
+				A10000000000000000000017 /* QuickAddPanelController.swift in Sources */,
+				A10000000000000000000018 /* TagSettingsViewModel.swift in Sources */,
+				A10000000000000000000019 /* DataManagementViewModel.swift in Sources */,
+				A1000000000000000000001B /* DesignSystem.swift in Sources */,
+				A1000000000000000000001E /* LaunchAtLoginSettingsModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AB0000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AB0000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		AB0000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_DEBUG_DYLIB = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "单词记录本";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_CODE_SIGN_FLAGS = "--requirements $(SRCROOT)/VocabularyApp/LocalSigningRequirements.txt";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wordnotebook.VocabularyApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		AB0000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "单词记录本";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_CODE_SIGN_FLAGS = "--requirements $(SRCROOT)/VocabularyApp/LocalSigningRequirements.txt";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wordnotebook.VocabularyApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A80000000000000000000001 /* Build configuration list for PBXProject "VocabularyApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB0000000000000000000001 /* Debug */,
+				AB0000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A80000000000000000000002 /* Build configuration list for PBXNativeTarget "VocabularyApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB0000000000000000000003 /* Debug */,
+				AB0000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A90000000000000000000001 /* XCLocalSwiftPackageReference "Packages/VocabularyKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/VocabularyKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A90000000000000000000002 /* VocabularyCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VocabularyCore;
+		};
+		A90000000000000000000003 /* VocabularyPersistence */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VocabularyPersistence;
+		};
+		A90000000000000000000004 /* VocabularyAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VocabularyAI;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = A70000000000000000000001 /* Project object */;
+}
