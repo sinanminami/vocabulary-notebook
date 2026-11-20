@@ -117,20 +117,23 @@ struct LibraryView: View {
                         Divider().overlay(AppTheme.divider)
                     }
 
-                    HSplitView {
+                    HStack(spacing: 0) {
                         List(visibleCards, selection: $selectedCardID) { card in
                             cardRow(card)
                                 .padding(.vertical, 5)
                                 .tag(card.id)
+                                .listRowBackground(cardRowBackground(isSelected: card.id == selectedCardID))
                         }
                         .listStyle(.inset)
                         .scrollContentBackground(.hidden)
                         .background(AppTheme.canvas)
-                        .frame(minWidth: 420, idealWidth: 560)
+                        .frame(minWidth: 340, maxWidth: .infinity)
+
+                        Divider().overlay(AppTheme.divider)
 
                         if let selectedCard {
                             cardDetail(selectedCard)
-                                .frame(minWidth: 320, idealWidth: 400)
+                                .frame(minWidth: 300, idealWidth: 380, maxWidth: 420)
                         } else {
                             ContentUnavailableView(
                                 "选择一个单词",
@@ -138,7 +141,7 @@ struct LibraryView: View {
                                 description: Text("在左侧选择词条，查看、编辑或删除完整词卡。")
                             )
                             .appPageBackground()
-                            .frame(minWidth: 320, idealWidth: 400)
+                            .frame(minWidth: 300, idealWidth: 380, maxWidth: 420)
                         }
                     }
                 }
@@ -456,6 +459,23 @@ struct LibraryView: View {
         }
     }
 
+    /// Replaces the system selection highlight (grey when the list is unfocused) with the theme's lilac.
+    @ViewBuilder
+    private func cardRowBackground(isSelected: Bool) -> some View {
+        if isSelected {
+            RoundedRectangle(cornerRadius: AppTheme.compactRadius, style: .continuous)
+                .fill(AppTheme.accentSoft)
+                .overlay {
+                    RoundedRectangle(cornerRadius: AppTheme.compactRadius, style: .continuous)
+                        .stroke(AppTheme.lilac, lineWidth: 1)
+                }
+                .padding(.horizontal, 6)
+                .padding(.vertical, 2)
+        } else {
+            Color.clear
+        }
+    }
+
     private var selectedCard: VocabularyCard? {
         guard let selectedCardID else { return nil }
         return model.cards.first { $0.id == selectedCardID }
@@ -469,7 +489,7 @@ struct LibraryView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             HStack(alignment: .firstTextBaseline, spacing: 10) {
                                 Text(card.term)
-                                    .font(.system(size: 30, weight: .semibold, design: .rounded))
+                                    .font(.system(size: 30, weight: .semibold, design: .serif))
                                     .foregroundStyle(AppTheme.graphite)
                                     .textSelection(.enabled)
                                 AppPill(text: card.languageCode.rawValue.uppercased(), tint: AppTheme.warmSecondary)
@@ -523,11 +543,7 @@ struct LibraryView: View {
                         }
                     }
                 }
-                .appHeroCard(
-                    padding: 20,
-                    tint: AppTheme.violet,
-                    secondaryTint: AppTheme.cyan
-                )
+                .appHeroCard(padding: 20)
 
                 let senses = model.senses(for: card)
                 if senses.isEmpty {

@@ -128,7 +128,7 @@ struct ReviewSessionView: View {
             AppIconBadge(symbol: "checkmark", tint: AppTheme.accent, size: 58)
             VStack(spacing: 6) {
                 Text("You’re done for today.")
-                    .font(.system(size: 27, weight: .semibold, design: .rounded))
+                    .font(.system(size: 27, weight: .semibold, design: .serif))
                     .foregroundStyle(AppTheme.graphite)
                 Text("完成 \(model.initialMeaningCount) 个词义 · 共 \(model.reviewAttempts) 次主动回忆")
                     .foregroundStyle(AppTheme.warmSecondary)
@@ -168,7 +168,7 @@ struct ReviewSessionView: View {
                         .font(.system(
                             size: model.currentPrompt == .contextCloze ? 30 : 42,
                             weight: .semibold,
-                            design: .rounded
+                            design: .serif
                         ))
                         .foregroundStyle(AppTheme.graphite)
                         .multilineTextAlignment(.center)
@@ -218,11 +218,7 @@ struct ReviewSessionView: View {
             .padding(.horizontal, 34)
             .padding(.vertical, 30)
             .frame(maxWidth: 650, minHeight: model.isAnswerShown ? 315 : 300)
-            .appHeroCard(
-                padding: 0,
-                tint: AppTheme.violet,
-                secondaryTint: AppTheme.pink
-            )
+            .appHeroCard(padding: 0)
 
             if let errorMessage = model.errorMessage {
                 Label(errorMessage, systemImage: "exclamationmark.triangle.fill")

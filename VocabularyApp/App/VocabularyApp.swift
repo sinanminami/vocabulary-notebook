@@ -34,10 +34,10 @@ struct VocabularyApp: App {
         WindowGroup("单词记录本", id: "main") {
             RootView()
                 .environment(environment)
-                .preferredColorScheme(.dark)
-                .frame(minWidth: 840, minHeight: 560)
+                .preferredColorScheme(.light)
+                .frame(minWidth: 960, minHeight: 560)
         }
-        .defaultSize(width: 1_040, height: 700)
+        .defaultSize(width: 1_120, height: 720)
         .commands {
             SidebarCommands()
             CommandMenu("Vocabulary") {

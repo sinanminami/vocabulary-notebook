@@ -55,28 +55,33 @@ struct RootView: View {
     var body: some View {
         NavigationSplitView {
             VStack(spacing: 0) {
+                // Shared sidebar grid: rows/cards inset 11pt, icon column starts at 21pt,
+                // titles start at 63pt (21 + 31 icon + 11 gap).
                 sidebarBrand
-                    .padding(.horizontal, 15)
+                    .padding(.leading, SidebarMetrics.brandLeading)
+                    .padding(.trailing, SidebarMetrics.rowInset)
                     .padding(.top, 17)
                     .padding(.bottom, 15)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
                 Divider().overlay(AppTheme.divider)
-                    .padding(.horizontal, 14)
+                    .padding(.horizontal, SidebarMetrics.rowInset)
 
                 VStack(spacing: 5) {
                     ForEach(AppSection.allCases) { section in
                         sidebarButton(section)
                     }
                 }
-                .padding(.horizontal, 11)
+                .padding(.horizontal, SidebarMetrics.rowInset)
                 .padding(.top, 15)
 
                 Spacer(minLength: 20)
 
-                HStack(spacing: 8) {
+                HStack(spacing: SidebarMetrics.iconTitleGap) {
                     Image(systemName: "lock.shield.fill")
                         .font(.caption)
                         .foregroundStyle(AppTheme.accent)
+                        .frame(width: SidebarMetrics.iconColumn)
                     VStack(alignment: .leading, spacing: 1) {
                         Text("LOCAL FIRST")
                             .font(.caption2.weight(.bold))
@@ -88,13 +93,15 @@ struct RootView: View {
                     Spacer(minLength: 0)
                 }
                 .foregroundStyle(AppTheme.graphite)
-                .padding(12)
+                .padding(.horizontal, SidebarMetrics.rowPadding)
+                .padding(.vertical, 12)
                 .background(AppTheme.surface.opacity(0.62), in: RoundedRectangle(cornerRadius: 13, style: .continuous))
                 .overlay {
                     RoundedRectangle(cornerRadius: 13, style: .continuous)
                         .stroke(AppTheme.border, lineWidth: 0.7)
                 }
-                .padding(12)
+                .padding(.horizontal, SidebarMetrics.rowInset)
+                .padding(.vertical, 12)
             }
             .background(AppTheme.sidebar)
             .navigationSplitViewColumnWidth(min: 245, ideal: 260)
@@ -107,6 +114,10 @@ struct RootView: View {
                 )
             } else {
                 content(for: selection ?? .today)
+                    // Keep page minimum widths from reaching the split view: otherwise the
+                    // detail column's minimum is counted on top of the sidebar width and the
+                    // sidebar gets pushed off-window in narrower windows.
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
             }
         }
         .navigationSplitViewStyle(.balanced)
@@ -176,14 +187,14 @@ struct RootView: View {
     }
 
     private var sidebarBrand: some View {
-        HStack(spacing: 11) {
+        HStack(spacing: SidebarMetrics.brandIconTitleGap) {
             Image(nsImage: NSApplication.shared.applicationIconImage)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 44, height: 44)
+                .frame(width: SidebarMetrics.brandIcon, height: SidebarMetrics.brandIcon)
             VStack(alignment: .leading, spacing: 3) {
                 Text("Word Notebook")
-                    .font(.system(size: 18, weight: .bold, design: .rounded))
+                    .font(.system(size: 18, weight: .bold, design: .serif))
                     .foregroundStyle(AppTheme.graphite)
                     .lineLimit(1)
                 Text("Capture · Remember")
@@ -201,11 +212,11 @@ struct RootView: View {
                 selection = section
             }
         } label: {
-            HStack(spacing: 11) {
+            HStack(spacing: SidebarMetrics.iconTitleGap) {
                 Image(systemName: section.symbol)
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundStyle(isSelected ? section.tint : AppTheme.warmSecondary)
-                    .frame(width: 31, height: 31)
+                    .frame(width: SidebarMetrics.iconColumn, height: SidebarMetrics.iconColumn)
                     .background(
                         isSelected ? section.tint.opacity(0.15) : AppTheme.field.opacity(0.72),
                         in: RoundedRectangle(cornerRadius: 8, style: .continuous)
@@ -215,11 +226,11 @@ struct RootView: View {
                 Spacer(minLength: 0)
             }
             .foregroundStyle(isSelected ? AppTheme.graphite : AppTheme.warmSecondary)
-            .padding(.horizontal, 10)
+            .padding(.horizontal, SidebarMetrics.rowPadding)
             .padding(.vertical, 8)
             .background {
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(isSelected ? AppTheme.surfaceRaised : Color.clear)
+                    .fill(isSelected ? AppTheme.surface : Color.clear)
                     .overlay(alignment: .leading) {
                         if isSelected {
                             Capsule()
@@ -379,5 +390,21 @@ struct RootView: View {
         )
         .navigationTitle(title)
         .appPageBackground()
+    }
+}
+
+/// Shared horizontal grid for the sidebar so the brand, navigation rows and footer line up.
+private enum SidebarMetrics {
+    static let rowInset: CGFloat = 11        // card/row edge from sidebar edge
+    static let rowPadding: CGFloat = 10      // content inset inside a row/card
+    static let iconColumn: CGFloat = 31
+    static let iconTitleGap: CGFloat = 11
+    /// macOS icons carry ~9.8% transparent margin; offset so the visible artwork starts at 21pt.
+    static let brandIcon: CGFloat = 38
+    static var brandArtworkInset: CGFloat { brandIcon * 100 / 1024 }
+    static var brandLeading: CGFloat { rowInset + rowPadding - brandArtworkInset }
+    /// Titles start at rowInset + rowPadding + iconColumn + iconTitleGap.
+    static var brandIconTitleGap: CGFloat {
+        (rowInset + rowPadding + iconColumn + iconTitleGap) - (brandLeading + brandIcon)
     }
 }

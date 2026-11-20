@@ -47,7 +47,7 @@
 - 来源应用名、原句和时间可本地记录；默认不采集页面标题或 URL。不要为了方便扩大采集范围或把来源应用信息发送给 Gemini。
 - AI 对重复词提出已有/新词义建议，但创建新 sense 必须由用户明确确认；拒绝未知 sense ID。
 - 统计不得把主观评分包装成“记住率/留存率”。优先给出客观学习信号和少量可行动诊断。
-- UI 优先复用 `DesignSystem.swift`，保持深色外观和既有颜色语义。
+- UI 优先复用 `DesignSystem.swift`，保持浅色「浪漫 Romantic」外观（2026-11-19 起取代深色 Wrapped 主题）和既有颜色语义；文字/图标用加深语义色，原色只用于填充与背景。
 - 全局快捷键、签名和 bundle identity 可能影响 macOS Accessibility 授权；修改前检查 `LocalSigningRequirements.txt` 与 `PROJECT_MEMORY.md` 的本地签名记录。
 
 ## 构建与验证入口

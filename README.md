@@ -46,8 +46,8 @@ M0–M4：
 - macOS 菜单栏 Quick Add / Review Today / Settings 入口
 - Settings 可使用 macOS 原生登录项开启或关闭“登录时自动启动”，并显示已启用、未启用或等待系统批准的真实状态
 - 数据健康检查与包含学习元数据的 CSV 导出
-- 深茄紫与暖象牙纸张构成的原生 macOS App Icon：一个统一折页同时表达“打开的词页、书签与进入记忆”，完整覆盖 16–1024 px 图标规格
-- Spotify Wrapped 启发的沉浸式多色设计系统：黑色侧边栏与炭灰内容层作为舞台，酸性绿、亮紫、粉色、橙红、湖蓝和暖黄按内容语义组合；Today、Library、Statistics、Settings、添加/编辑和复习会话已完整统一
+- 葡萄紫底与珍珠白折页构成的原生 macOS App Icon：一个统一折页同时表达“打开的词页、书签与进入记忆”，樱花粉点出记忆入口，完整覆盖 16–1024 px 图标规格
+- 「浪漫 Romantic」浅色设计系统：珍珠白画布、淡丁香侧边栏与白色卡片，葡萄紫主操作，樱花粉/淡丁香氛围渐变；Today、Library、Statistics、Settings、添加/编辑、Quick Add 和复习会话统一使用
 
 ## 使用手动添加
 
@@ -115,6 +115,6 @@ xcodebuild -project VocabularyApp.xcodeproj -scheme VocabularyApp -configuration
 
 界面组件集中在 `VocabularyApp/App/DesignSystem.swift`：颜色、页面标题、信息卡、标签、图标徽章、主/次按钮与输入框表面都应优先复用这里的定义，避免后续页面重新引入浅色表面、系统蓝或不一致的灰色层级。
 
-视觉原则是“沉浸、高对比、有节奏但不随机”：主任务使用双色 `appHeroCard` 和克制的循环图形；普通内容使用炭灰 `appCard`；同一层级的数字优先放进连续数据带。绿色用于主操作，紫色用于词库，橙色用于统计/学习压力，蓝色用于信息，粉色用于最近活动，黄色用于新内容或提示。
+配色取自「浪漫 Romantic」方案：葡萄紫 `#A78AD4`、樱花粉 `#F5B5CF`、淡丁香 `#D8C8ED`、珍珠白 `#FFF1E9`。界面遵循克制规则：颜色只有墨色（正文 `#2F2635`、次级 `#76697E`）、纸色和唯一强调色葡萄紫；樱花粉只表示“新”，淡丁香只用于进度轨道与卡背。衬线字体只用于页面标题、大数字和词条。整页只有一处装饰——Today 首张词卡上的和纸胶带。主任务使用白色 `appHeroCard`，普通内容使用 `appCard`；新增组件前可用 `Scripts/render_design_preview.swift` 离屏渲染检查。
 
-图标设计源文件位于 `VocabularyApp/Resources/AppIcon-master.png`：深茄紫底色承托一枚暖象牙色连续折页，正形像打开的书，中心负形像书签，并以一小块低饱和柿橙标记“进入记忆”的瞬间。设计遵循单一强隐喻、少量形状和小尺寸清晰度原则，不再使用 `W`、卡片堆叠、霓虹折射或厚重玻璃。Xcode 使用 `VocabularyApp/Resources/Assets.xcassets/AppIcon.appiconset` 中的完整 macOS 尺寸资源；本轮源图、第一稿和旧版备份保存在 `VocabularyApp/Resources/IconConcepts/AppleDesignAwards2026`，更早的 Wrapped 方案仍保存在 `VocabularyApp/Resources/IconConcepts/SpotifyWrapped`。
+图标设计源文件位于 `VocabularyApp/Resources/AppIcon-master.png`：一枚珍珠白连续折页立在葡萄紫渐变底上，正形像打开的书，中心负形像书签，折页深处的一小块樱花粉标记“进入记忆”的瞬间。2026-11-20 起配色随「浪漫 Romantic」主题由深茄紫/暖象牙/柿橙重新着色，造型与光影保持不变；重新着色脚本为 `Scripts/recolor_icon_romantic.swift`，着色前的源图备份在 `VocabularyApp/Resources/IconConcepts/Romantic2026`。Xcode 使用 `VocabularyApp/Resources/Assets.xcassets/AppIcon.appiconset` 中的完整 macOS 尺寸资源；更早的方案保存在 `VocabularyApp/Resources/IconConcepts/AppleDesignAwards2026` 与 `IconConcepts/SpotifyWrapped`。

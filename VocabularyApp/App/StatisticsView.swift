@@ -75,7 +75,7 @@ struct StatisticsView: View {
             VStack(alignment: .leading, spacing: 8) {
                 AppPill(text: "词库概览", tint: AppTheme.yellow)
                 Text("\(statistics.totalMeanings)")
-                    .font(.system(size: 52, weight: .semibold, design: .rounded))
+                    .font(.system(size: 52, weight: .semibold, design: .serif))
                     .tracking(-1)
                     .foregroundStyle(AppTheme.graphite)
                     .monospacedDigit()
@@ -120,11 +120,7 @@ struct StatisticsView: View {
             }
             .frame(maxWidth: .infinity)
         }
-        .appHeroCard(
-            padding: 24,
-            tint: AppTheme.orange,
-            secondaryTint: AppTheme.pink
-        )
+        .appHeroCard(padding: 24)
     }
 
     private var reviewPulse: some View {

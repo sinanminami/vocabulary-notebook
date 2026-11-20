@@ -51,12 +51,11 @@ struct TodayView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 26) {
+            VStack(alignment: .leading, spacing: 24) {
                 AppPageHeader(
-                    eyebrow: "Today",
+                    eyebrow: Date().formatted(.dateTime.month(.wide).day().weekday(.wide)),
                     title: todayTitle,
-                    subtitle: "先完成今天该复习的词，再回到阅读。",
-                    tint: AppTheme.pink
+                    subtitle: "先完成今天该复习的词，再回到阅读。"
                 )
 
                 if model.isLoading && model.cards.isEmpty {
@@ -72,7 +71,19 @@ struct TodayView: View {
                             .font(.caption)
                             .foregroundStyle(.orange)
                     }
-                    recentlyAdded
+                    rhythmCard
+                    // Two columns when there is room, stacked otherwise.
+                    ViewThatFits(in: .horizontal) {
+                        HStack(alignment: .top, spacing: 16) {
+                            masteryCard.frame(minWidth: 300)
+                            recentlyAdded.frame(minWidth: 300)
+                        }
+                        .fixedSize(horizontal: false, vertical: true)
+                        VStack(spacing: 16) {
+                            masteryCard
+                            recentlyAdded
+                        }
+                    }
                 }
             }
             .padding(.horizontal, 32)
@@ -101,133 +112,257 @@ struct TodayView: View {
     }
 
     private var summary: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack(spacing: 26) {
-                VStack(alignment: .leading, spacing: 13) {
-                    AppPill(
-                        text: dueCount > 0 ? "今天的复习计划" : "今天的学习计划",
-                        tint: dueCount > 0 ? AppTheme.orange : AppTheme.yellow
-                    )
-                    HStack(alignment: .firstTextBaseline, spacing: 8) {
-                        Text("\(dueCount + newCount)")
-                            .font(.system(size: 48, weight: .semibold, design: .rounded))
-                            .foregroundStyle(AppTheme.graphite)
-                            .monospacedDigit()
-                        Text("个词义待学习")
-                            .font(.title3.weight(.medium))
-                            .foregroundStyle(AppTheme.warmSecondary)
-                    }
-                    VStack(alignment: .leading, spacing: 7) {
-                        Text(reviewSummary)
-                            .font(.callout)
-                            .foregroundStyle(AppTheme.warmSecondary)
-                            .fixedSize(horizontal: false, vertical: true)
-
-                        if shouldShowDailyNewCardQuota {
-                            Label(
-                                "今日新词额度：已学 \(consumedNewCardsToday) · 上限 \(dailyNewCardLimit)",
-                                systemImage: "sparkles"
-                            )
-                            .font(.caption.weight(.medium))
-                            .foregroundStyle(AppTheme.yellow)
-                        }
-                    }
-
-                    Button {
-                        isReviewing = true
-                    } label: {
-                        Label("开始约 \(estimatedMinutes) 分钟复习", systemImage: "play.fill")
-                    }
-                    .buttonStyle(AppPrimaryButtonStyle())
-                    .disabled(dueCount + newCount == 0)
+        HStack(alignment: .center, spacing: 24) {
+            VStack(alignment: .leading, spacing: 14) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Text("\(dueCount + newCount)")
+                        .font(AppTheme.display(52))
+                        .foregroundStyle(AppTheme.graphite)
+                        .monospacedDigit()
+                    Text("个词义待学习")
+                        .font(.title3.weight(.medium))
+                        .foregroundStyle(AppTheme.warmSecondary)
                 }
-
-                Spacer(minLength: 12)
-
-                ZStack {
-                    Circle()
-                        .stroke(AppTheme.violet.opacity(0.22), lineWidth: 10)
-                    Circle()
-                        .trim(from: 0, to: reviewRingProgress)
-                        .stroke(
-                            AppTheme.cyan,
-                            style: StrokeStyle(lineWidth: 10, lineCap: .round)
-                        )
-                        .rotationEffect(.degrees(-90))
-                    VStack(spacing: 2) {
-                        Text("约 \(estimatedMinutes)")
-                            .font(.system(size: 26, weight: .semibold, design: .rounded))
-                            .monospacedDigit()
-                        Text("分钟")
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(reviewSummary)
+                        .font(.callout)
+                        .foregroundStyle(AppTheme.warmSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                    if shouldShowDailyNewCardQuota {
+                        Text("今日新词额度：已学 \(consumedNewCardsToday) · 上限 \(dailyNewCardLimit)")
                             .font(.caption)
                             .foregroundStyle(AppTheme.warmSecondary)
                     }
                 }
-                .frame(width: 118, height: 118)
+                Button {
+                    isReviewing = true
+                } label: {
+                    Label("开始约 \(estimatedMinutes) 分钟复习", systemImage: "play.fill")
+                }
+                .buttonStyle(AppPrimaryButtonStyle())
+                .disabled(dueCount + newCount == 0)
+                .padding(.top, 4)
             }
-            .appHeroCard(
-                padding: 26,
-                tint: AppTheme.violet,
-                secondaryTint: AppTheme.pink
-            )
 
+            Spacer(minLength: 12)
+
+            if !fanItems.isEmpty {
+                // The handwritten aside only appears when there is room for it beside the cards.
+                ViewThatFits(in: .horizontal) {
+                    HStack(alignment: .center, spacing: 8) {
+                        PaintedHandNote(lines: fanNoteLines)
+                        WordCardFan(items: fanItems, caption: fanCaption)
+                    }
+                    // Narrow windows: the note sits under the cards, without the arrow.
+                    VStack(spacing: 6) {
+                        WordCardFan(items: fanItems)
+                        PaintedHandNote(lines: [fanNoteLines.joined()], showsArrow: false)
+                        if let fanCaption {
+                            Text(fanCaption)
+                                .font(.caption)
+                                .foregroundStyle(AppTheme.warmSecondary)
+                        }
+                    }
+                }
+                .padding(.trailing, 18)
+            }
         }
+        .appHeroCard(padding: 28)
     }
 
     @ViewBuilder
     private var recentlyAdded: some View {
-        let cards = model.cards.filter { Calendar.current.isDateInToday($0.createdAt) }
-        Group {
-            if !cards.isEmpty {
-        VStack(alignment: .leading, spacing: 12) {
-            AppSectionHeading(
-                "Added Today",
-                subtitle: "今天新加入的词，会在之后的复习中出现。",
-                symbol: "tray.and.arrow.down",
-                tint: AppTheme.pink
-            )
-
-                ForEach(Array(cards.prefix(6).enumerated()), id: \.element.id) { index, card in
-                    HStack(spacing: 12) {
-                        AppIconBadge(
-                            symbol: "character.cursor.ibeam",
-                            tint: recentTint(index),
-                            size: 28
-                        )
-                        Text(card.term)
-                            .font(.callout.weight(.semibold))
-                        Text(card.translationZH)
-                            .foregroundStyle(AppTheme.warmSecondary)
-                            .lineLimit(1)
-                        Spacer()
-                        RelativeDateText(date: card.createdAt)
-                            .font(.caption)
-                            .foregroundStyle(AppTheme.warmSecondary.opacity(0.72))
+        let addedToday = model.cards.filter { Calendar.current.isDateInToday($0.createdAt) }
+        let showsToday = !addedToday.isEmpty
+        let cards = Array((showsToday ? addedToday : model.cards.sorted { $0.createdAt > $1.createdAt }).prefix(5))
+        if !cards.isEmpty {
+            VStack(alignment: .leading, spacing: 12) {
+                AppSectionHeading(
+                    showsToday ? "今天新加入" : "最近收录",
+                    subtitle: showsToday ? "会在之后的复习中出现" : "按加入时间排列"
+                )
+                VStack(spacing: 0) {
+                    ForEach(Array(cards.enumerated()), id: \.element.id) { index, card in
+                        HStack(alignment: .firstTextBaseline, spacing: 10) {
+                            Text(card.term)
+                                .font(AppTheme.display(15))
+                                .foregroundStyle(AppTheme.graphite)
+                                .lineLimit(1)
+                            Text(card.translationZH)
+                                .font(.callout)
+                                .foregroundStyle(AppTheme.warmSecondary)
+                                .lineLimit(1)
+                            Spacer(minLength: 8)
+                            RelativeDateText(date: card.createdAt)
+                                .font(.caption)
+                                .foregroundStyle(AppTheme.warmSecondary)
+                        }
+                        .padding(.vertical, 8)
+                        if index < cards.count - 1 {
+                            Divider().overlay(AppTheme.divider)
+                        }
                     }
-                    .padding(.vertical, 3)
-                    if card.id != cards.prefix(6).last?.id {
-                        Divider().overlay(AppTheme.divider)
-                    }
+                }
             }
-        }
-        .appCard(padding: 20, shadow: false)
-            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .appCard(padding: 20, shadow: false)
         }
     }
 
     private var dueCount: Int { model.dueReviewSenses().count }
 
-    private func recentTint(_ index: Int) -> Color {
-        let palette: [Color] = [
-            AppTheme.pink,
-            AppTheme.cyan,
-            AppTheme.yellow,
-            AppTheme.violet,
-            AppTheme.orange,
-            AppTheme.accent
-        ]
-        return palette[index % palette.count]
+    // MARK: Rhythm (all values come from local review logs and sense states)
+
+    private var rhythmCard: some View {
+        HStack(alignment: .top, spacing: 0) {
+            rhythmColumn(title: "近 7 天复习", value: "\(reviewsPerDayThisWeek.reduce(0) { $0 + $1.count })", unit: "次") {
+                weekBars
+            }
+            Divider().overlay(AppTheme.divider).padding(.horizontal, 20)
+            rhythmColumn(title: "连续学习", value: "\(studyStreak)", unit: "天") {
+                Text(studyStreak == 0 ? "今天复习一次就开始计数" : "保持每天至少复习一次")
+                    .font(.caption)
+                    .foregroundStyle(AppTheme.warmSecondary)
+            }
+            Divider().overlay(AppTheme.divider).padding(.horizontal, 20)
+            rhythmColumn(title: "已熟悉", value: "\(settledSenseCount)", unit: "/ \(model.senses.count)") {
+                Text("熟悉或已掌握的词义")
+                    .font(.caption)
+                    .foregroundStyle(AppTheme.warmSecondary)
+            }
+        }
+        .fixedSize(horizontal: false, vertical: true)
+        .appCard(padding: 20, shadow: false)
     }
+
+    private func rhythmColumn<Footer: View>(
+        title: String,
+        value: String,
+        unit: String,
+        @ViewBuilder footer: () -> Footer
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(title)
+                .font(.caption.weight(.medium))
+                .foregroundStyle(AppTheme.warmSecondary)
+            HStack(alignment: .firstTextBaseline, spacing: 4) {
+                Text(value)
+                    .font(AppTheme.display(28))
+                    .foregroundStyle(AppTheme.graphite)
+                    .monospacedDigit()
+                Text(unit)
+                    .font(.caption)
+                    .foregroundStyle(AppTheme.warmSecondary)
+            }
+            footer()
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private var weekBars: some View {
+        let counts = reviewsPerDayThisWeek
+        let peak = max(counts.map(\.count).max() ?? 0, 1)
+        return HStack(alignment: .bottom, spacing: 5) {
+            ForEach(Array(counts.enumerated()), id: \.offset) { index, day in
+                RoundedRectangle(cornerRadius: 2, style: .continuous)
+                    .fill(index == counts.count - 1 ? AppTheme.accent : AppTheme.lilac)
+                    .frame(width: 8, height: 4 + 18 * CGFloat(day.count) / CGFloat(peak))
+                    .help("\(day.date.formatted(.dateTime.month().day()))：\(day.count) 次")
+            }
+        }
+        .frame(height: 22, alignment: .bottom)
+    }
+
+    private var reviewsPerDayThisWeek: [(date: Date, count: Int)] {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let days = (0..<7).reversed().compactMap { calendar.date(byAdding: .day, value: -$0, to: today) }
+        var counts: [Date: Int] = [:]
+        for log in model.reviewLogs {
+            counts[calendar.startOfDay(for: log.reviewedAt), default: 0] += 1
+        }
+        return days.map { ($0, counts[$0] ?? 0) }
+    }
+
+    /// Consecutive days with at least one review, ending today (or yesterday if today has none yet).
+    private var studyStreak: Int {
+        let calendar = Calendar.current
+        let reviewDays = Set(model.reviewLogs.map { calendar.startOfDay(for: $0.reviewedAt) })
+        var day = calendar.startOfDay(for: Date())
+        if !reviewDays.contains(day) {
+            guard let yesterday = calendar.date(byAdding: .day, value: -1, to: day) else { return 0 }
+            day = yesterday
+        }
+        var streak = 0
+        while reviewDays.contains(day) {
+            streak += 1
+            guard let previous = calendar.date(byAdding: .day, value: -1, to: day) else { break }
+            day = previous
+        }
+        return streak
+    }
+
+    private var settledSenseCount: Int {
+        model.senses.filter {
+            let level = model.mastery(for: $0)
+            return level == .familiar || level == .mastered
+        }.count
+    }
+
+    // MARK: Mastery distribution
+
+    @ViewBuilder
+    private var masteryCard: some View {
+        let total = model.senses.count
+        if total > 0 {
+            let levels: [MasteryLevel] = [.new, .learning, .familiar, .mastered]
+            let counts = Dictionary(grouping: model.senses, by: { model.mastery(for: $0) }).mapValues(\.count)
+            VStack(alignment: .leading, spacing: 14) {
+                AppSectionHeading("学习阶段", subtitle: "全部 \(total) 个词义")
+                GeometryReader { proxy in
+                    HStack(spacing: 2) {
+                        ForEach(levels, id: \.self) { level in
+                            let count = counts[level] ?? 0
+                            if count > 0 {
+                                Rectangle()
+                                    .fill(masteryColor(level))
+                                    .frame(width: max(4, (proxy.size.width - 6) * CGFloat(count) / CGFloat(total)))
+                            }
+                        }
+                    }
+                    .clipShape(Capsule())
+                }
+                .frame(height: 8)
+                VStack(spacing: 8) {
+                    ForEach(levels, id: \.self) { level in
+                        HStack(spacing: 8) {
+                            Circle().fill(masteryColor(level)).frame(width: 7, height: 7)
+                            Text(level.displayName)
+                                .font(.callout)
+                                .foregroundStyle(AppTheme.graphite)
+                            Spacer()
+                            Text("\(counts[level] ?? 0)")
+                                .font(.callout.monospacedDigit())
+                                .foregroundStyle(AppTheme.warmSecondary)
+                        }
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .appCard(padding: 20, shadow: false)
+        }
+    }
+
+    /// One-hue ramp: lighter = earlier stage.
+    private func masteryColor(_ level: MasteryLevel) -> Color {
+        switch level {
+        case .new: AppTheme.lilac.opacity(0.7)
+        case .learning: AppTheme.grape.opacity(0.6)
+        case .familiar: AppTheme.grape
+        case .mastered: AppTheme.accentStrong
+        }
+    }
+
     private var consumedNewCardsToday: Int {
         dailyNewCardPolicy.consumedCount(from: model.reviewLogs, on: Date())
     }
@@ -242,9 +377,39 @@ struct TodayView: View {
         return cardsToStudy == 0 ? 0 : max(1, Int(ceil(Double(cardsToStudy) * 0.5)))
     }
 
-    private var reviewRingProgress: Double {
-        guard estimatedMinutes > 0 else { return 0 }
-        return min(1, Double(estimatedMinutes) / 15)
+    /// Up to three real words for today's session: most overdue first, then new senses.
+    private var fanSenses: [VocabularySense] {
+        let due = model.dueReviewSenses().sorted {
+            (model.state(for: $0)?.dueAt ?? .distantFuture) < (model.state(for: $1)?.dueAt ?? .distantFuture)
+        }
+        let fresh = model.newSenses().sorted { $0.createdAt < $1.createdAt }.prefix(newCount)
+        return Array((due + fresh).prefix(3))
+    }
+
+    private var fanItems: [WordCardFanItem] {
+        let cardsByID = Dictionary(uniqueKeysWithValues: model.cards.map { ($0.id, $0) })
+        return fanSenses.compactMap { sense in
+            guard let card = cardsByID[sense.cardID] else { return nil }
+            return WordCardFanItem(
+                id: sense.id,
+                term: card.term,
+                meaning: sense.translationZH,
+                language: card.languageCode.rawValue.uppercased()
+            )
+        }
+    }
+
+    private var fanNoteLines: [String] {
+        switch fanItems.count {
+        case 1: return ["先从这一个", "开始吧"]
+        case 2: return ["先从这两个", "开始吧"]
+        default: return ["先从这三个", "开始吧"]
+        }
+    }
+
+    private var fanCaption: String? {
+        let remaining = dueCount + newCount - fanItems.count
+        return remaining > 0 ? "还有 \(remaining) 个词义在等你" : nil
     }
 
     private var reviewSummary: String {

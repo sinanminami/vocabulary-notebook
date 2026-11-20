@@ -89,7 +89,7 @@ final class QuickAddPanelController: NSObject, NSWindowDelegate {
         )
         panel.setContentSize(NSSize(width: 560, height: 540))
         panel.contentViewController = NSHostingController(
-            rootView: view.preferredColorScheme(.dark)
+            rootView: view.preferredColorScheme(.light)
         )
         panel.center()
         NSApp.activate(ignoringOtherApps: true)
@@ -135,7 +135,7 @@ final class QuickAddPanelController: NSObject, NSWindowDelegate {
         .background(AppTheme.canvas)
         panel?.setContentSize(NSSize(width: 360, height: 150))
         panel?.contentViewController = NSHostingController(
-            rootView: feedback.preferredColorScheme(.dark)
+            rootView: feedback.preferredColorScheme(.light)
         )
         panel?.center()
 
